@@ -11,14 +11,14 @@ import graphing.plotting.LinePlot;
 import graphing.plotting.Plot;
 import graphing.plotting.PlotComponent;
 
-public class FitnessVisualization extends Visualization {
+public class FitnessViz extends Visualization {
     private PlotComponent plotComponent;
     private CoordinatePlaneWindow plane;
     private Plot maxFitnessPlot;
     private Plot minFitnessPlot;
     private Plot avgFitnessPlot;
 
-    public FitnessVisualization() {
+    public FitnessViz() {
         super();
         this.maxFitnessPlot = new LinePlot("Max", new Color(40, 158, 35));
         this.minFitnessPlot = new LinePlot("Min", Color.RED);
@@ -30,14 +30,14 @@ public class FitnessVisualization extends Visualization {
     }
 
     @Override
-    public void updateComponent(GeneticAlgorithm geneticAlgorithm) {
-        PopulationStats stats = geneticAlgorithm.latest();
+    public void updateComponent(GeneticAlgorithm ga) {
+        PopulationStats stats = ga.latest();
         this.maxFitnessPlot.dataset().addDataPoint(stats.maxFitness());
         this.minFitnessPlot.dataset().addDataPoint(stats.minFitness());
         this.avgFitnessPlot.dataset().addDataPoint(stats.averageFitness());
 
-        this.plane.updateBounds(0, geneticAlgorithm.generations(),
-                geneticAlgorithm.lowestEverFitness(), geneticAlgorithm.highestEverFitness());
+        this.plane.updateBounds(0, ga.generations(),
+                ga.lowestEverFitness(), ga.highestEverFitness());
 
         this.plotComponent.repaint();
     }

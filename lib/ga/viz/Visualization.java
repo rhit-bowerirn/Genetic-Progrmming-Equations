@@ -25,22 +25,22 @@ public abstract class Visualization implements Observer {
     }
 
     @Override
-    public final void update(GeneticAlgorithm geneticAlgorithm) {
-        this.updateComponent(geneticAlgorithm);
+    public final void update(GeneticAlgorithm ga) {
+        this.updateComponent(ga);
         this.updateWatchers();
     }
 
     @Override
-    public final void reset(GeneticAlgorithm geneticAlgorithm) {
+    public final void reset(GeneticAlgorithm ga) {
         this.clearComponent();
-        this.update(geneticAlgorithm);
+        this.update(ga);
     }
 
     public abstract JComponent visualization();
 
     public abstract String name();
 
-    protected abstract void updateComponent(GeneticAlgorithm geneticAlgorithm);
+    protected abstract void updateComponent(GeneticAlgorithm ga);
 
     protected void clearComponent() {
         //default do nothing

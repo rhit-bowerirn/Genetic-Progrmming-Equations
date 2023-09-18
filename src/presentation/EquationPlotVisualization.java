@@ -30,8 +30,8 @@ public class EquationPlotVisualization extends Visualization {
     }
 
     @Override
-    public void updateComponent(GeneticAlgorithm geneticAlgorithm) {
-        GPTree fittest = (GPTree) geneticAlgorithm.latest().fittestGenome();
+    public void updateComponent(GeneticAlgorithm ga) {
+        GPTree fittest = (GPTree) ga.latest().fittestGenome();
         this.predictions.setData(fittest.predictions());
         this.targetData.setData(fittest.targetData());
 

@@ -28,14 +28,14 @@ public class SelectByTournament implements SelectionMethod {
         return children;
     }
 
-    public Genome tournament(List<Genome> population, Random rand) {
+    private Genome tournament(List<Genome> population, Random rand) {
         // fastest way to randomly select
         Collections.shuffle(population, rand);
 
         // ensures we have at least 2
         int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually Math.round()
 
-        return Collections.max(population.subList(0, numCompetitors));
+        return PopulationUtil.fittestGenome(population.subList(0, numCompetitors));
     }
 
     @Override

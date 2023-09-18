@@ -20,9 +20,9 @@ public abstract class VisualizationController extends JPanel {
         }
     }
 
-    public void beginListening(GeneticAlgorithm geneticAlgorithm) {
+    public void beginListening(GeneticAlgorithm ga) {
         for (Visualization viz : this.visualizations) {
-            geneticAlgorithm.subscribe(viz);
+            ga.subscribe(viz);
         }
     }
 

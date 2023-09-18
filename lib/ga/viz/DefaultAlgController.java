@@ -13,17 +13,17 @@ import javax.swing.JTextField;
 
 import ga.sim.GeneticAlgorithm;
 
-public class DefaultAlgorithmController extends AlgorithmController {
+public class DefaultAlgController extends AlgorithmController {
 
-    public DefaultAlgorithmController(GeneticAlgorithm geneticAlgorithm) {
-        super(geneticAlgorithm);
+    public DefaultAlgController(GeneticAlgorithm ga) {
+        super(ga);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         
         JLabel generationsLabel = new JLabel("Generations: ");
-        JTextField generationsInput = new JTextField("500", 5);
+        JTextField generationsInput = new JTextField("1000", 5);
 
         JButton run = new JButton("Run");
         run.addActionListener(new ActionListener() {

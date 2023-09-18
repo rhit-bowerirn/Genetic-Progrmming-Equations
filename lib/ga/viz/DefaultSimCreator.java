@@ -28,10 +28,10 @@ public class DefaultSimCreator extends SimulationCreator {
         this.selectionMethodMenu = new SelectionMethodMenu();
         this.add(new LabeledComponent("Selection Method: ", this.selectionMethodMenu, true));
 
-        this.populationSizeInput = new JTextField("200", TEXT_FIELD_LENGTH);
+        this.populationSizeInput = new JTextField("500", TEXT_FIELD_LENGTH);
         this.add(new LabeledComponent("Population Size: ", this.populationSizeInput, true));
 
-        this.mutationRateInput = new JTextField(".05", TEXT_FIELD_LENGTH);
+        this.mutationRateInput = new JTextField("0.1", TEXT_FIELD_LENGTH);
         this.add(new LabeledComponent("Mutation Rate: ", this.mutationRateInput, true));
 
         this.eliteCountInput = new JTextField("1", TEXT_FIELD_LENGTH);

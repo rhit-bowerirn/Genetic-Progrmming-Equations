@@ -12,7 +12,12 @@ public class SelectByProportion implements SelectionMethod {
         population.sort(Genome::compareTo);
         List<Genome> children = new ArrayList<Genome>();
 
+        // so we can index based on fitness
         double totalFitness = PopulationUtil.totalFitness(population);
+
+        //we need to shift it so 0 is the min fitness
+        double minFitness = Math.abs(PopulationUtil.minFitness(population));
+        totalFitness += (minFitness * (double) population.size());
 
         // assume we get the full population
         for (int i = 0; i < population.size() / 2; i++) {
@@ -29,8 +34,8 @@ public class SelectByProportion implements SelectionMethod {
             Genome secondParent = null;
 
             for(Genome genome : population) {
-                firstIndex -= genome.fitness();
-                secondIndex -= genome.fitness();
+                firstIndex -= (genome.fitness() + minFitness);
+                secondIndex -= (genome.fitness() + minFitness);
 
                 if(firstIndex <= 0 && firstParent == null) {
                     firstParent = genome;

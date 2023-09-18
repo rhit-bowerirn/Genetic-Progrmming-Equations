@@ -34,8 +34,8 @@ public class Application extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    GeneticAlgorithm geneticAlgorithm = constController.startSimulation();
-                    startSimulation(geneticAlgorithm);
+                    GeneticAlgorithm ga = constController.startSimulation();
+                    startSimulation(ga);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Exception",
                             JOptionPane.ERROR_MESSAGE);
@@ -51,7 +51,7 @@ public class Application extends JPanel {
         this.repaint();
     }
 
-    private void startSimulation(GeneticAlgorithm geneticAlgorithm) {
+    private void startSimulation(GeneticAlgorithm ga) {
         this.removeAll();
 
         JButton back = new JButton("Back");
@@ -67,10 +67,10 @@ public class Application extends JPanel {
         buttonPanel.add(back);
 
         this.add(vizController, BorderLayout.CENTER);
-        this.add(new DefaultAlgorithmController(geneticAlgorithm), BorderLayout.SOUTH);
+        this.add(new DefaultAlgController(ga), BorderLayout.SOUTH);
         //this.add(buttonPanel, BorderLayout.SOUTH);
 
-        this.vizController.beginListening(geneticAlgorithm);
+        this.vizController.beginListening(ga);
         this.revalidate();
         this.repaint();
     }

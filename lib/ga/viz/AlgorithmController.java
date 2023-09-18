@@ -5,10 +5,10 @@ import javax.swing.JPanel;
 import ga.sim.GeneticAlgorithm;
 
 public abstract class AlgorithmController extends JPanel {
-    protected GeneticAlgorithm geneticAlgorithm;
+    protected GeneticAlgorithm ga;
 
-    public AlgorithmController(GeneticAlgorithm geneticAlgorithm) {
-        this.geneticAlgorithm = geneticAlgorithm;
+    public AlgorithmController(GeneticAlgorithm ga) {
+        this.ga = ga;
     }
 
     public final void run(int generations) {
@@ -16,7 +16,7 @@ public abstract class AlgorithmController extends JPanel {
 
             @Override
             public void run() {
-                geneticAlgorithm.run(generations);
+                ga.run(generations);
             }
 
         });
@@ -26,15 +26,15 @@ public abstract class AlgorithmController extends JPanel {
     }
 
     public final void step() {
-        this.geneticAlgorithm.nextGeneration();
+        this.ga.nextGeneration();
     }
 
     public final void reset() {
-        this.geneticAlgorithm.reset();
+        this.ga.reset();
     }
 
     public final void logCSV(String filename) {
-        this.geneticAlgorithm.logCSV(filename);
+        this.ga.logCSV(filename);
     }
 
 }
