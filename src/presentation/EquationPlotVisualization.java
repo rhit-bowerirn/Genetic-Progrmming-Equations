@@ -5,13 +5,13 @@ import java.awt.Color;
 import javax.swing.JComponent;
 
 import domain.GPTree;
-import evolution.simulation.GeneticAlgorithm;
-import evolution.visualization.Visualization;
-import graphing.CoordinatePlaneWindow;
-import graphing.LinePlot;
-import graphing.Plot;
-import graphing.PlotComponent;
-import graphing.ScatterPlot;
+import ga.sim.GeneticAlgorithm;
+import ga.viz.Visualization;
+import graphing.plotting.CoordinatePlaneWindow;
+import graphing.plotting.LinePlot;
+import graphing.plotting.Plot;
+import graphing.plotting.PlotComponent;
+import graphing.plotting.ScatterPlot;
 
 public class EquationPlotVisualization extends Visualization {
     private PlotComponent plotComponent;
@@ -19,21 +19,19 @@ public class EquationPlotVisualization extends Visualization {
     private Plot targetData;
     private Plot predictions;
 
-    public EquationPlotVisualization(GeneticAlgorithm geneticAlgorithm) {
-        super(geneticAlgorithm);
+    public EquationPlotVisualization() {
+        super();
         this.targetData = new ScatterPlot("Target Data", Color.BLACK);
         this.predictions = new LinePlot("Predictions", Color.BLUE);
 
         this.plane = new CoordinatePlaneWindow();
         this.plotComponent = new PlotComponent("Best Evolved Equation", "x data", "y data", this.plane);
         this.plotComponent.addPlots(targetData, predictions);
-
-        this.update();
     }
 
     @Override
-    public void update() {
-        GPTree fittest = (GPTree) this.geneticAlgorithm.history().latest().fittestGenome();
+    public void updateComponent(GeneticAlgorithm geneticAlgorithm) {
+        GPTree fittest = (GPTree) geneticAlgorithm.latest().fittestGenome();
         this.predictions.setData(fittest.predictions());
         this.targetData.setData(fittest.targetData());
 

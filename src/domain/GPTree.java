@@ -3,9 +3,9 @@ package domain;
 import java.util.Iterator;
 import java.util.Random;
 
-import evolution.simulation.Genome;
-import graphing.Dataset;
-import graphing.Point;
+import ga.sim.Genome;
+import graphing.data.Dataset;
+import graphing.data.Point;
 
 public class GPTree extends Genome {
     private Node root;
@@ -16,7 +16,7 @@ public class GPTree extends Genome {
     public GPTree(int maxDepth, int sizeLimit, Dataset data, Random rand) {
         super(rand);
         this.data = data;
-        this.sizeLimit = sizeLimit; // at maxDepth the fitness will be penalized by .1
+        this.sizeLimit = sizeLimit;
         this.root = NodeFactory.randomNode(maxDepth, rand);
         this.updateFitness();
     }
@@ -54,9 +54,12 @@ public class GPTree extends Genome {
         }
 
         double accuracy = 1 / (1 + Math.sqrt(sum));
-        double size = this.size() <= this.sizeLimit ? 0
-                : this.size() * this.size() / (double) (100 * this.sizeLimit * this.sizeLimit);
-        return  accuracy - size;
+        double sizePenalty = 0;
+        if(this.size() > this.sizeLimit) {
+            // at sizeLimit the fitness will be penalized by .1 and grow quadratically
+            sizePenalty = this.size() * this.size() / (double) (100 * this.sizeLimit * this.sizeLimit);
+        }
+        return  accuracy - sizePenalty;
     }
 
     public double evaluate(double x) {

@@ -4,21 +4,21 @@ package presentation;
 import javax.swing.*;
 
 import domain.GPTree;
-import evolution.simulation.GeneticAlgorithm;
-import evolution.visualization.Visualization;
+import ga.sim.GeneticAlgorithm;
+import ga.viz.Visualization;
 
 
 public class TreeVisualization extends Visualization {
     private GPTreeComponent treeComponent;
 
-    public TreeVisualization(GeneticAlgorithm geneticAlgorithm) {
-        super(geneticAlgorithm);
+    public TreeVisualization() {
+        super();
         this.treeComponent = new GPTreeComponent();
     }
 
     @Override
-    public void update() {
-        GPTree fittest = (GPTree) this.geneticAlgorithm.history().latest().fittestGenome();
+    public void updateComponent(GeneticAlgorithm geneticAlgorithm) {
+        GPTree fittest = (GPTree) geneticAlgorithm.latest().fittestGenome();
         this.treeComponent.setTree(fittest);
         this.treeComponent.repaint();
     }
