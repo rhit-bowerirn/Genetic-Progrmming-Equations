@@ -1,5 +1,5 @@
 package graphing.fileIO;
 
-public class Loader {
+public interface Loader {
     
 }

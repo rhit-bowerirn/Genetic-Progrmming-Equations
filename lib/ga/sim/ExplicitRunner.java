@@ -13,7 +13,7 @@ public class ExplicitRunner extends AlgorithmRunner {
         for (int i = 0; this.isRunning && i < this.generations; i++) {
             this.ga.nextGeneration();
         }
-        this.ga.stop();
+        this.isRunning = false;
     }
     
 }

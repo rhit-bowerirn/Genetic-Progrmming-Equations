@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class CSVLogger extends Logger {
-    private static final String CSV_HEADERS = "Generation,Max Fitness,Min Fitness,Avg Fitness";
+    private static final String CSV_HEADERS = "Generation,Max Fitness,Min Fitness,Avg Fitness,Fittest Genome";
 
     public CSVLogger(String filename) throws Exception {
         super(filename);
@@ -19,9 +19,9 @@ public class CSVLogger extends Logger {
     }
 
     @Override
-    public void logPopulation(int generation, double maxFitness, double minFitness, double avgFitness)
-            throws Exception {
-        this.writeToFile(generation + "," + maxFitness + "," + minFitness + "," + avgFitness);
+    public void logPopulation(int generation, double maxFitness, double minFitness, double avgFitness,
+            String fittestGenome) throws Exception {
+        this.writeToFile(generation + "," + maxFitness + "," + minFitness + "," + avgFitness + ", " + fittestGenome);
     }
 
     private void writeToFile(String line) throws Exception {

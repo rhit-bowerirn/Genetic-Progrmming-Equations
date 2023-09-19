@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-public class CSVLogger extends Logger {
+public class CSVLogger extends FileHandler implements Logger {
     private static final String CSV_HEADERS = "x,y";
 
     public CSVLogger(String filename) throws Exception {

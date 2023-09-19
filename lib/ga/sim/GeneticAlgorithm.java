@@ -3,6 +3,7 @@ package ga.sim;
 import java.util.Random;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class GeneticAlgorithm {
@@ -18,14 +19,13 @@ public class GeneticAlgorithm {
     private List<Observer> observers;
 
     private AlgorithmRunner runner;
-    private boolean isRunning;
 
-    public GeneticAlgorithm(List<Genome> initialPopulation, SelectionMethod selectionMethod, double mutationRate,
+    public GeneticAlgorithm(Collection<Genome> initialPopulation, SelectionMethod selectionMethod, double mutationRate,
             int eliteCount, Random rand) {
 
-        this.isRunning = false;
+        this.runner = new IndefiniteRunner(this);
 
-        this.initialPopulation = initialPopulation;
+        this.initialPopulation = new ArrayList<Genome>(initialPopulation);
         this.rand = rand;
         this.eliteCount = eliteCount;
         this.mutationRate = mutationRate;
@@ -62,18 +62,14 @@ public class GeneticAlgorithm {
     }
 
     public void start(AlgorithmRunner runner) {
-        if (!this.isRunning) {
-            this.isRunning = true;
+        if (!this.runner.isRunning()) {
             this.runner = runner;
             this.runner.start();
         }
     }
 
     public void stop() {
-        if (this.isRunning) {
-            this.runner.stop();
-            this.isRunning = false;
-        }
+        this.runner.stop();
     }
 
     public void reset() {

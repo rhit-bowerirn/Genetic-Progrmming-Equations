@@ -8,7 +8,7 @@ public class SelectByRoulette implements SelectionMethod {
 
     @Override
     public List<Genome> nextGeneration(List<Genome> population, Random rand) {
-        List<Genome> children = new ArrayList<Genome>();
+        List<Genome> children = new ArrayList<Genome>(population.size());
 
         for (int i = 0; i < population.size() / 2; i++) {
             // select a random parent

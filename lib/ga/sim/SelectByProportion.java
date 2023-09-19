@@ -10,7 +10,7 @@ public class SelectByProportion implements SelectionMethod {
     public List<Genome> nextGeneration(List<Genome> population, Random rand) {
         // sort the genomes so we can use their rank
         population.sort(Genome::compareTo);
-        List<Genome> children = new ArrayList<Genome>();
+        List<Genome> children = new ArrayList<Genome>(population.size());
 
         // so we can index based on fitness
         double totalFitness = PopulationUtil.totalFitness(population);

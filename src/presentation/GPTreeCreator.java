@@ -31,7 +31,7 @@ public class GPTreeCreator extends GenomeCreator {
         this.add(new LabeledComponent("Tree Size Limit: ", this.sizeLimitInput, true));
 
         this.dataInput = new PointEntryTable();
-        this.add(new LabeledComponent("Data: ", this.dataInput, true));
+        this.add(new LabeledComponent("Data: ", this.dataInput, false));
     }
 
     @Override

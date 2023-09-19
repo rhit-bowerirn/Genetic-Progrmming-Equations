@@ -15,7 +15,7 @@ public class PopulationStats {
     }
 
     public void log(Logger logger) throws Exception {
-        logger.logPopulation(this.generation, this.maxFitness(), this.minFitness(), this.averageFitness());
+        logger.logPopulation(this.generation, this.maxFitness(), this.minFitness(), this.averageFitness(), this.fittestGenome().toString());
     }
 
     public List<Genome> population() {

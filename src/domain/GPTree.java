@@ -45,7 +45,7 @@ public class GPTree extends Genome {
     }
 
     public Dataset predictions() {
-        return this.data.transformCopy(p -> new Point(p.x, this.predict(p.x)));
+        return this.data = this.data.transform(p -> new Point(p.x, this.predict(p.x)));
     }
 
     public Dataset imputeData() {

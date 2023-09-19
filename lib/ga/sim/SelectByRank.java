@@ -10,7 +10,7 @@ public class SelectByRank implements SelectionMethod {
     public List<Genome> nextGeneration(List<Genome> population, Random rand) {
         // sort the genomes so we can use their rank
         population.sort(Genome::compareTo);
-        List<Genome> children = new ArrayList<Genome>();
+        List<Genome> children = new ArrayList<Genome>(population.size());
 
         // assume we get the full population
         for (int i = 0; i < population.size() / 2; i++) {

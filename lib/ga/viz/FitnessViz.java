@@ -32,9 +32,9 @@ public class FitnessViz extends Visualization {
     @Override
     public void updateComponent(GeneticAlgorithm ga) {
         PopulationStats stats = ga.latest();
-        this.maxFitnessPlot.dataset().addDataPoint(stats.maxFitness());
-        this.minFitnessPlot.dataset().addDataPoint(stats.minFitness());
-        this.avgFitnessPlot.dataset().addDataPoint(stats.averageFitness());
+        this.maxFitnessPlot.dataset().add(stats.maxFitness());
+        this.minFitnessPlot.dataset().add(stats.minFitness());
+        this.avgFitnessPlot.dataset().add(stats.averageFitness());
 
         this.plane.updateBounds(0, ga.generations(),
                 ga.lowestEverFitness(), ga.highestEverFitness());
