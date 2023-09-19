@@ -12,21 +12,15 @@ public abstract class AlgorithmController extends JPanel {
     }
 
     public final void run(int generations) {
-        Thread gaThread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                ga.run(generations);
-            }
-
-        });
-
-        gaThread.start();
-
+        this.ga.run(generations);
     }
 
-    public final void step() {
-        this.ga.nextGeneration();
+    public final void run() {
+        this.ga.run();
+    }
+
+    public final void stop() {
+        this.ga.stop();
     }
 
     public final void reset() {

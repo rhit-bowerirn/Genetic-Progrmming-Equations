@@ -1,12 +1,9 @@
 package ga.sim;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import ga.logging.CSVLogger;
 import ga.logging.Logger;
-import graphing.data.Dataset;
 
 import java.util.LinkedList;
 
@@ -33,16 +30,23 @@ public class PopulationHistory {
         return this.history.add(stats);
     }
 
-    public Dataset timeSeries(Function<? super PopulationStats,? extends Number> stat) {
-        List<Double> timeSeries = history.stream().map(stat).map(num -> ((double) num)).collect(Collectors.toList());
-        return new Dataset(timeSeries, true);
-    } 
-
     public PopulationStats latest() {
         return this.history.getLast();
     }
 
+    public PopulationStats first() {
+        return this.history.getFirst();
+    }
+
     public PopulationStats generation(int generation) {
+        if (generation < 0) {
+            return this.first();
+        }
+
+        if (generation > this.generations()) {
+            return this.latest();
+        }
+
         return this.history.get(generation);
     }
 

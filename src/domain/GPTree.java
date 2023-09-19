@@ -1,7 +1,10 @@
 package domain;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import ga.sim.Genome;
 import graphing.data.Dataset;
@@ -42,7 +45,14 @@ public class GPTree extends Genome {
     }
 
     public Dataset predictions() {
-        return this.data.transformCopy(p -> new Point(p.x, this.evaluate(p.x)));
+        return this.data.transformCopy(p -> new Point(p.x, this.predict(p.x)));
+    }
+
+    public Dataset imputeData() {
+        List<Point> imputations = IntStream.range(0, ((int) (this.targetData().maxX() + .5) + 1))
+                .mapToObj(this::prediction)
+                .collect(Collectors.toList());
+        return new Dataset(imputations);
     }
 
     public double score() {
@@ -50,20 +60,24 @@ public class GPTree extends Genome {
         Iterator<Point> iterator = this.data.iterator();
         while (iterator.hasNext()) {
             Point p = iterator.next();
-            sum += Math.pow(this.evaluate(p.x) - p.y, 2);
+            sum += Math.pow(this.predict(p.x) - p.y, 2);
         }
 
         double accuracy = 1 / (1 + Math.sqrt(sum));
         double sizePenalty = 0;
-        if(this.size() > this.sizeLimit) {
+        if (this.size() > this.sizeLimit) {
             // at sizeLimit the fitness will be penalized by .1 and grow quadratically
             sizePenalty = this.size() * this.size() / (double) (100 * this.sizeLimit * this.sizeLimit);
         }
-        return  accuracy - sizePenalty;
+        return accuracy - sizePenalty;
     }
 
-    public double evaluate(double x) {
+    public double predict(double x) {
         return this.root.evaluate(x);
+    }
+
+    public Point prediction(double x) {
+        return new Point(x, this.root.evaluate(x));
     }
 
     public GPTree deepCopy() {

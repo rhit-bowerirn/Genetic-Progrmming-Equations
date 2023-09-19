@@ -1,9 +1,6 @@
 package ga.sim;
 
 import java.util.Random;
-import java.util.function.Function;
-
-import graphing.data.Dataset;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +17,14 @@ public class GeneticAlgorithm {
     private PopulationHistory history;
     private List<Observer> observers;
 
+    private AlgorithmRunner runner;
+    private boolean isRunning;
+
     public GeneticAlgorithm(List<Genome> initialPopulation, SelectionMethod selectionMethod, double mutationRate,
             int eliteCount, Random rand) {
+
+        this.isRunning = false;
+
         this.initialPopulation = initialPopulation;
         this.rand = rand;
         this.eliteCount = eliteCount;
@@ -51,12 +54,30 @@ public class GeneticAlgorithm {
     }
 
     public void run(int generations) {
-        for (int i = 0; i < generations; i++) {
-            this.nextGeneration();
+        this.start(new ExplicitRunner(this, generations));
+    }
+
+    public void run() {
+        this.start(new IndefiniteRunner(this));
+    }
+
+    public void start(AlgorithmRunner runner) {
+        if (!this.isRunning) {
+            this.isRunning = true;
+            this.runner = runner;
+            this.runner.start();
+        }
+    }
+
+    public void stop() {
+        if (this.isRunning) {
+            this.runner.stop();
+            this.isRunning = false;
         }
     }
 
     public void reset() {
+        this.stop();
         this.population = this.initialPopulation;
         this.history.reset();
         this.history.addRecord(this.initialPopulation);
@@ -85,10 +106,6 @@ public class GeneticAlgorithm {
 
     public double lowestEverFitness() {
         return this.history.lowestEverFitness();
-    }
-
-    public Dataset timeSeries(Function<? super PopulationStats, ? extends Number> stat) {
-        return this.history.timeSeries(stat);
     }
 
     public void logCSV(String filename) {
