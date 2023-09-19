@@ -49,7 +49,7 @@ public class GPTree extends Genome {
     }
 
     public Dataset imputeData() {
-        List<Point> imputations = IntStream.range(0, ((int) (this.targetData().maxX() + .5) + 1))
+        List<Point> imputations = IntStream.range(0, (int) (this.targetData().maxX()+ 1.5))
                 .mapToObj(this::prediction)
                 .collect(Collectors.toList());
         return new Dataset(imputations);

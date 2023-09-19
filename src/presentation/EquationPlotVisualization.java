@@ -35,7 +35,10 @@ public class EquationPlotVisualization extends Visualization {
         this.predictions.setData(fittest.imputeData());
         this.targetData.setData(fittest.targetData());
 
-        this.plane.updateBounds(this.predictions);
+        this.plane.updateBounds(predictions.dataset().minX(),
+                                Math.max(predictions.dataset().maxX(), targetData.dataset().maxX()),
+                                Math.min(predictions.dataset().minY(), targetData.dataset().minY()),
+                                Math.max(predictions.dataset().maxY(), targetData.dataset().maxY()));
         this.plotComponent.repaint();
     }
 

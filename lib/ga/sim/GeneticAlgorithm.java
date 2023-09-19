@@ -108,7 +108,7 @@ public class GeneticAlgorithm {
         return this.history.lowestEverFitness();
     }
 
-    public void logCSV(String filename) {
+    public void logCSV(String filename) throws Exception {
         this.history.toCSV(filename);
     }
 

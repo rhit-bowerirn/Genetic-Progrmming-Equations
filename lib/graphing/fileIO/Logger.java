@@ -1,4 +1,4 @@
-package ga.logging;
+package graphing.fileIO;
 
 import java.io.File;
 
@@ -12,6 +12,6 @@ public abstract class Logger {
     public Logger(File file) throws Exception {
         this.file = file;
     }
-    
-    public abstract void logPopulation(int generation, double maxFitness, double minFitness, double avgFitness) throws Exception;
+
+    public abstract void logPoint(double x, double y) throws Exception;
 }

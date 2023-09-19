@@ -1,4 +1,4 @@
-package ga.logging;
+package graphing.fileIO;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class CSVLogger extends Logger {
-    private static final String CSV_HEADERS = "Generation,Max Fitness,Min Fitness,Avg Fitness";
+    private static final String CSV_HEADERS = "x,y";
 
     public CSVLogger(String filename) throws Exception {
         super(filename);
@@ -19,15 +19,14 @@ public class CSVLogger extends Logger {
     }
 
     @Override
-    public void logPopulation(int generation, double maxFitness, double minFitness, double avgFitness)
-            throws Exception {
-        this.writeToFile(generation + "," + maxFitness + "," + minFitness + "," + avgFitness);
+    public void logPoint(double x, double y) throws Exception {
+        this.writeToFile(x + "," + y + ",");
     }
 
     private void writeToFile(String line) throws Exception {
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(this.file, true)));
         writer.println(line);
         writer.close();
-    }
 
+    }
 }

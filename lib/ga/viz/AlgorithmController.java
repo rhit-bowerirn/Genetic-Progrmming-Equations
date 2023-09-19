@@ -27,7 +27,7 @@ public abstract class AlgorithmController extends JPanel {
         this.ga.reset();
     }
 
-    public final void logCSV(String filename) {
+    public final void logCSV(String filename) throws Exception {
         this.ga.logCSV(filename);
     }
 

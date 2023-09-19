@@ -62,7 +62,7 @@ public class PopulationHistory {
         return this.lowestEverFitness;
     }
 
-    public void toCSV(String filename) {
+    public void toCSV(String filename) throws Exception {
         Logger logger = new CSVLogger(filename);
         this.logHistory(logger);
     }
@@ -72,7 +72,8 @@ public class PopulationHistory {
     // this.logHistory(logger);
     // }
 
-    private void logHistory(Logger logger) {
+    private void logHistory(Logger logger) throws Exception {
+        
         for (PopulationStats stats : this.history) {
             stats.log(logger);
         }

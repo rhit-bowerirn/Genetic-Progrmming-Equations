@@ -3,10 +3,13 @@ package ga.viz;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.filechooser.FileFilter;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,7 +38,6 @@ public class DefaultAlgController extends AlgorithmController {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Exception",
                             JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
                 }
             }
         });
@@ -68,7 +70,49 @@ public class DefaultAlgController extends AlgorithmController {
         log.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Not implemented");
+                // Create a file chooser dialog
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setSelectedFile(new File("log.csv")); // Set the default filename
+
+                // Create a file filter to restrict selection to CSV files
+                FileFilter csvFilter = new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return file.isDirectory() || file.getName().toLowerCase().endsWith(".csv");
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "CSV Files (*.csv)";
+                    }
+                };
+
+                fileChooser.setFileFilter((javax.swing.filechooser.FileFilter) csvFilter);
+
+                int returnValue = fileChooser.showSaveDialog(null);
+
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    System.out.println("file approved");
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String filename = selectedFile.getAbsolutePath(); // Update the filename
+
+                    // Ensure the selected file has a .csv extension
+                    if (!filename.toLowerCase().endsWith(".csv")) {
+                        filename += ".csv";
+                    }
+
+                    try {
+                        logCSV(filename);
+                        JOptionPane.showMessageDialog(null, "Successfully logged data to " + selectedFile.getName(),
+                                "Success!",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Exception",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+
             }
         });
 
@@ -82,11 +126,11 @@ public class DefaultAlgController extends AlgorithmController {
         controlPanel.add(generationsLabel);
 
         controlPanel.add(Box.createHorizontalStrut(50));
-        
+
         controlPanel.add(reset);
 
         controlPanel.add(Box.createHorizontalStrut(50));
-        
+
         controlPanel.add(log);
 
         this.add(controlPanel);
