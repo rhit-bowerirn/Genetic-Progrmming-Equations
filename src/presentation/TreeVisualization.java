@@ -5,7 +5,7 @@ import javax.swing.*;
 
 import domain.GPTree;
 import ga.sim.GeneticAlgorithm;
-import ga.viz.Visualization;
+import ga.viz.display.Visualization;
 
 
 public class TreeVisualization extends Visualization {

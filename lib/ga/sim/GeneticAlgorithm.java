@@ -2,6 +2,13 @@ package ga.sim;
 
 import java.util.Random;
 
+import ga.sim.records.PopulationHistory;
+import ga.sim.records.PopulationStats;
+import ga.sim.selection.SelectionMethod;
+import ga.sim.threading.AlgorithmRunner;
+import ga.sim.threading.ExplicitRunner;
+import ga.sim.threading.IndefiniteRunner;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -110,7 +117,7 @@ public class GeneticAlgorithm {
 
     public void subscribe(Observer observer) {
         this.observers.add(observer);
-        observer.update(this);
+        observer.reset(this);
     }
 
     private void updateObservers() {

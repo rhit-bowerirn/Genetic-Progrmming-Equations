@@ -9,9 +9,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import graphing.fileIO.CSVLoader;
-import graphing.fileIO.Loader;
-
+import fileIO.CSVLoader;
+import fileIO.CSVLogger;
+import fileIO.Logger;
 
 public class Dataset extends CopyOnWriteArrayList<Point> {
     public Dataset() {
@@ -35,8 +35,45 @@ public class Dataset extends CopyOnWriteArrayList<Point> {
         super(loadFromList(data, (isZeroIndexed ? 0 : 1)));
     }
 
-    public void loadCSV(String filename) throws Exception {
-        Loader loader = new CSVLoader(filename);
+    public int loadCSV(String filename) throws Exception {
+        CSVLoader loader = new CSVLoader(filename);
+        int dimensions = loader.headers().length;
+        if (dimensions < 1 || dimensions > 2) {
+            throw new Exception("Invalid CSV Format");
+        }
+
+        int badLines = 0;
+
+        while (loader.hasNext()) {
+            String[] line = loader.next();
+            try {
+                if (dimensions == 1) {
+                    this.add(Double.parseDouble(line[0]));
+                } else {
+                    this.add(Double.parseDouble(line[0]), Double.parseDouble(line[1]));
+                }
+            } catch (Exception e) {
+                badLines++;
+            }
+        }
+
+        loader.close();
+        return badLines;
+    }
+
+    public void toCSV(String filename) throws Exception {
+        CSVLogger logger = new CSVLogger(filename, new String[] { "x", "y" });
+        this.log(logger);
+    }
+
+    private void log(Logger logger) throws Exception {
+        for (Point p : this) {
+            logger.log(new String[] {
+                    Double.toString(p.x),
+                    Double.toString(p.y)
+            });
+        }
+        logger.close();
     }
 
     public boolean addAll(Map<Double, Double> newData) {

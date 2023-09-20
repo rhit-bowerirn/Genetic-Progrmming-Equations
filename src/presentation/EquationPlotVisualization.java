@@ -6,7 +6,7 @@ import javax.swing.JComponent;
 
 import domain.GPTree;
 import ga.sim.GeneticAlgorithm;
-import ga.viz.Visualization;
+import ga.viz.display.Visualization;
 import graphing.plotting.CoordinatePlaneWindow;
 import graphing.plotting.LinePlot;
 import graphing.plotting.Plot;

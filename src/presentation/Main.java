@@ -2,14 +2,14 @@ package presentation;
 
 import javax.swing.JFrame;
 
-import ga.viz.Application;
-import ga.viz.ConstantsController;
-import ga.viz.DefaultConstController;
-import ga.viz.DefaultSimCreator;
-import ga.viz.DefaultVizController;
-import ga.viz.FitnessViz;
-import ga.viz.Visualization;
-import ga.viz.VisualizationController;
+import ga.viz.control.Application;
+import ga.viz.control.ConstantsController;
+import ga.viz.control.DefaultConstController;
+import ga.viz.control.DefaultVizController;
+import ga.viz.control.VisualizationController;
+import ga.viz.display.FitnessViz;
+import ga.viz.display.Visualization;
+import ga.viz.instantiation.DefaultSimCreator;
 
 public class Main {
     public static void main(String[] args) {
