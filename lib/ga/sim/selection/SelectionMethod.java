@@ -3,7 +3,7 @@ package ga.sim.selection;
 import java.util.List;
 import java.util.Random;
 
-import ga.sim.Genome;
+import ga.sim.alg.Genome;
 
 public interface SelectionMethod {
     static final String PROPORTIONAL_SELECTION = "Proportional Selection";

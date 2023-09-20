@@ -4,7 +4,7 @@ import java.util.List;
 
 import fileIO.CSVLogger;
 import fileIO.Logger;
-import ga.sim.Genome;
+import ga.sim.alg.Genome;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package ga.sim;
+package ga.sim.alg;
 
 public interface Observer {
     void update(GeneticAlgorithm ga);

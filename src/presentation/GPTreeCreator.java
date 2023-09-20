@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domain.GPTree;
-import ga.sim.Genome;
+import ga.sim.alg.Genome;
 import ga.viz.instantiation.GenomeCreator;
 import ga.viz.instantiation.LabeledComponent;
 import graphing.data.Dataset;

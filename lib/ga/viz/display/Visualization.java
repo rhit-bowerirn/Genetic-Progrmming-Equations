@@ -2,8 +2,8 @@ package ga.viz.display;
 
 import javax.swing.JComponent;
 
-import ga.sim.GeneticAlgorithm;
-import ga.sim.Observer;
+import ga.sim.alg.GeneticAlgorithm;
+import ga.sim.alg.Observer;
 
 public abstract class Visualization implements Observer {
 

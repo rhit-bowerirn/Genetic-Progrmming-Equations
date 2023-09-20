@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import ga.sim.GeneticAlgorithm;
+import ga.sim.alg.GeneticAlgorithm;
 
 public class Application extends JPanel {
     private ConstantsController constController;

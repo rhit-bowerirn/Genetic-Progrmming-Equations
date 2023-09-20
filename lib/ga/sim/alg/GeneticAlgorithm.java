@@ -1,4 +1,4 @@
-package ga.sim;
+package ga.sim.alg;
 
 import java.util.Random;
 

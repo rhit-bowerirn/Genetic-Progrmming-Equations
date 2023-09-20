@@ -1,6 +1,6 @@
 package ga.sim.threading;
 
-import ga.sim.GeneticAlgorithm;
+import ga.sim.alg.GeneticAlgorithm;
 
 public abstract class AlgorithmRunner implements Runnable {
     protected boolean isRunning;

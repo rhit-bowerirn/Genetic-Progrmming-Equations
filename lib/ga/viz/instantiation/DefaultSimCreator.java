@@ -9,8 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 
-import ga.sim.GeneticAlgorithm;
-import ga.sim.Genome;
+import ga.sim.alg.GeneticAlgorithm;
+import ga.sim.alg.Genome;
 import ga.sim.selection.SelectionMethod;
 
 public class DefaultSimCreator extends SimulationCreator {

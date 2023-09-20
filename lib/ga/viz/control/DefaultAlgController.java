@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fileIO.CSVChooser;
-import ga.sim.GeneticAlgorithm;
+import ga.sim.alg.GeneticAlgorithm;
 
 public class DefaultAlgController extends AlgorithmController {
 

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JComponent;
 
-import ga.sim.GeneticAlgorithm;
+import ga.sim.alg.GeneticAlgorithm;
 import ga.sim.records.PopulationStats;
 import graphing.plotting.CoordinatePlaneWindow;
 import graphing.plotting.LinePlot;

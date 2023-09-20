@@ -3,8 +3,8 @@ package ga.sim.records;
 import java.util.List;
 
 import fileIO.Logger;
-import ga.sim.Genome;
-import ga.sim.PopulationUtil;
+import ga.sim.alg.Genome;
+import ga.sim.alg.PopulationUtil;
 
 public class PopulationStats {
     private List<Genome> population;

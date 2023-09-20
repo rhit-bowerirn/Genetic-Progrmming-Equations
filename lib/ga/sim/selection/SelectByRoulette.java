@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ga.sim.Genome;
+import ga.sim.alg.Genome;
 
 public class SelectByRoulette implements SelectionMethod {
 

@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import ga.sim.Genome;
+import ga.sim.alg.Genome;
 import graphing.data.Dataset;
 import graphing.data.Point;
 

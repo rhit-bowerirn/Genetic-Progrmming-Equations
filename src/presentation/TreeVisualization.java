@@ -1,10 +1,9 @@
 package presentation;
 
-
-import javax.swing.*;
+import javax.swing.JComponent;
 
 import domain.GPTree;
-import ga.sim.GeneticAlgorithm;
+import ga.sim.alg.GeneticAlgorithm;
 import ga.viz.display.Visualization;
 
 

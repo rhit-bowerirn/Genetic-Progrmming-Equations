@@ -2,7 +2,7 @@ package ga.viz.control;
 
 import javax.swing.JPanel;
 
-import ga.sim.GeneticAlgorithm;
+import ga.sim.alg.GeneticAlgorithm;
 import ga.viz.display.Visualization;
 
 public abstract class VisualizationController extends JPanel {
