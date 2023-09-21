@@ -14,25 +14,17 @@ public class SelectByTournament implements SelectionMethod {
     public List<Genome> nextGeneration(List<Genome> population, Random rand) {
         List<Genome> children = new ArrayList<Genome>(population.size());
 
-        // Ensure we always have at least 2
-        // int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually math.round
-
-        // Works better than scaling linearly with population size
-        int numCompetitors = 2;
-
-        // We only want an even number of tournaments for each run to produce an even number of parents
-        int numTournaments = (population.size() / numCompetitors) & ~1;
+        // Ensure we always have at least 2, and scale linearly with population size
+        int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually math.round
 
         // We can do stochastic universal sampling to get lots of tournaments per shuffle and save time
         while (children.size() < population.size()) {
             Collections.shuffle(population, rand);
 
-            // General case
-            for(int t = 0; t < numTournaments / 2; t++) {
-                int firstStart = t * numCompetitors;
-                int secondStart = firstStart + numCompetitors;
-                Genome firstParent = PopulationUtil.fittestGenome(population.subList(firstStart, secondStart));
-                Genome secondParent = PopulationUtil.fittestGenome(population.subList(secondStart, secondStart + numCompetitors));
+            for(int t = 0; t < population.size() - numCompetitors * 2; t += numCompetitors) {
+                int secondTournament = t + numCompetitors;
+                Genome firstParent = PopulationUtil.fittestGenome(population.subList(t, secondTournament));
+                Genome secondParent = PopulationUtil.fittestGenome(population.subList(secondTournament, secondTournament + numCompetitors));
                 children.add(firstParent.crossover(secondParent));
                 children.add(secondParent.crossover(firstParent));
 
