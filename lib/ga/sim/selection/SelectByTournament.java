@@ -27,9 +27,12 @@ public class SelectByTournament implements SelectionMethod {
         while (children.size() < population.size()) {
             Collections.shuffle(population, rand);
 
+            // General case
             for(int t = 0; t < numTournaments / 2; t++) {
-                Genome firstParent = PopulationUtil.fittestGenome(population.subList(0, numCompetitors));
-                Genome secondParent = PopulationUtil.fittestGenome(population.subList(numCompetitors, numCompetitors * 2));
+                int firstStart = t * numCompetitors;
+                int secondStart = firstStart + numCompetitors;
+                Genome firstParent = PopulationUtil.fittestGenome(population.subList(firstStart, secondStart));
+                Genome secondParent = PopulationUtil.fittestGenome(population.subList(secondStart, secondStart + numCompetitors));
                 children.add(firstParent.crossover(secondParent));
                 children.add(secondParent.crossover(firstParent));
 
