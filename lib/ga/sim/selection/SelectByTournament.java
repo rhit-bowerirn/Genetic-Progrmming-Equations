@@ -15,13 +15,16 @@ public class SelectByTournament implements SelectionMethod {
         List<Genome> children = new ArrayList<Genome>(population.size());
 
         // Ensure we always have at least 2, and scale linearly with population size
-        int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually math.round
+        //int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually math.round
+        
+        //Apparently works better than scaling linearly
+        int numCompetitors = 2;
 
         // We can do stochastic universal sampling to get lots of tournaments per shuffle and save time
         while (children.size() < population.size()) {
             Collections.shuffle(population, rand);
 
-            for(int t = 0; t < population.size() - numCompetitors * 2; t += numCompetitors) {
+            for(int t = 0; t < population.size() - numCompetitors * 2; t += numCompetitors * 2) {
                 int secondTournament = t + numCompetitors;
                 Genome firstParent = PopulationUtil.fittestGenome(population.subList(t, secondTournament));
                 Genome secondParent = PopulationUtil.fittestGenome(population.subList(secondTournament, secondTournament + numCompetitors));
