@@ -30,7 +30,6 @@ public class CSVChooser extends JFileChooser {
         int returnValue = this.showSaveDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            System.out.println("file approved");
             return this.getSelectedFile();
         } else if (returnValue == JFileChooser.CANCEL_OPTION) {
             return null;
