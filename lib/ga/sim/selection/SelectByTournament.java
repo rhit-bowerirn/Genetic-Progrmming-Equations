@@ -14,36 +14,37 @@ public class SelectByTournament implements SelectionMethod {
     public List<Genome> nextGeneration(List<Genome> population, Random rand) {
         List<Genome> children = new ArrayList<Genome>(population.size());
 
-        for (int i = 0; i < population.size() / 2; i++) {
-            Genome firstParent = tournament(population, rand);
+        // Ensure we always have at least 2
+        // int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually math.round
 
-            // we don't want to crossover with the same parent
-            population.remove(firstParent);
-            Genome secondParent = tournament(population, rand);
+        // Works better than scaling linearly with population size
+        int numCompetitors = 2;
 
-            // add it back for the next run
-            population.add(firstParent);
+        // We only want an even number of tournaments for each run to produce an even number of parents
+        int numTournaments = (population.size() / numCompetitors) & ~1;
 
-            children.add(firstParent.crossover(secondParent));
-            children.add(secondParent.crossover(firstParent));
+        // We can do stochastic universal sampling to get lots of tournaments per shuffle and save time
+        while (children.size() < population.size()) {
+            Collections.shuffle(population, rand);
+
+            for(int t = 0; t < numTournaments / 2; t++) {
+                Genome firstParent = PopulationUtil.fittestGenome(population.subList(0, numCompetitors));
+                Genome secondParent = PopulationUtil.fittestGenome(population.subList(numCompetitors, numCompetitors * 2));
+                children.add(firstParent.crossover(secondParent));
+                children.add(secondParent.crossover(firstParent));
+
+                if(children.size() == population.size()) {
+                    break;
+                }
+            }
         }
 
         return children;
     }
 
-    private Genome tournament(List<Genome> population, Random rand) {
-        // fastest way to randomly select
-        Collections.shuffle(population, rand);
-
-        // ensures we have at least 2
-        int numCompetitors = (int) (2.5 + population.size() / 100); // 2.5 to manually Math.round()
-
-        return PopulationUtil.fittestGenome(population.subList(0, numCompetitors));
-    }
-
     @Override
     public String toString() {
-        return TOURNAMENT_SELECTION;
+        return "Tournament Selection";
     }
 
 }

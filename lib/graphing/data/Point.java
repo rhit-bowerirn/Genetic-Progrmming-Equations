@@ -24,6 +24,10 @@ public class Point implements Comparable<Point> {
         return (int) this.y;
     }
 
+    public Point invert() {
+        return new Point(this.y, this.x);
+    }
+
     public static Comparator<Point> xComparator() {
         return new Comparator<Point>() {
             @Override

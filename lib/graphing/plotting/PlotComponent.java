@@ -9,12 +9,16 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import graphing.plotting.canvas.CoordinatePlane;
+import graphing.plotting.plots.Legend;
+import graphing.plotting.plots.Plot;
+
 public class PlotComponent extends JComponent {
 
     protected String plotTitle;
     protected String xAxisTitle;
     protected String yAxisTitle;
-    protected PlotCanvas graphWindow;
+    protected CoordinatePlane canvas;
     protected List<Plot> plots;
     protected Legend legend;
 
@@ -22,11 +26,11 @@ public class PlotComponent extends JComponent {
     protected static final int PADDING_RIGHT = 25;
     protected static final int PADDING_Y = 75;
 
-    public PlotComponent(String plotTitle, String xAxisTitle, String yAxisTitle, PlotCanvas window) {
+    public PlotComponent(String plotTitle, String xAxisTitle, String yAxisTitle, CoordinatePlane canvas) {
         this.plotTitle = plotTitle;
         this.xAxisTitle = xAxisTitle;
         this.yAxisTitle = yAxisTitle;
-        this.graphWindow = window;
+        this.canvas = canvas;
         this.plots = new ArrayList<Plot>();
         this.legend = new Legend();
         this.legend.clearPlots();
@@ -58,23 +62,25 @@ public class PlotComponent extends JComponent {
 
         Graphics2D g2d = (Graphics2D) g;
 
+        this.canvas.scale(this.plots);
+
         int width = getWidth() - (PADDING_LEFT + PADDING_RIGHT);
         int height = getHeight() - PADDING_Y * 2;
         int plotWidth = (int) (width * 0.75 + .5);
         int legendWidth = (int) (width * .2 + .5);
-        double xScale = this.graphWindow.xScale(plotWidth);
-        double yScale = this.graphWindow.yScale(height);
-        int plotOriginX = this.graphWindow.originX(plotWidth);
-        int plotOriginY = this.graphWindow.originY(height);
+        double xScale = this.canvas.xScale(plotWidth);
+        double yScale = this.canvas.yScale(height);
+        int plotOriginX = this.canvas.originX(plotWidth);
+        int plotOriginY = this.canvas.originY(height);
         int plotWindowOriginX = plotWidth / 2 + PADDING_LEFT;
         int legendOriginX = PADDING_LEFT + width - legendWidth / 2;
         int originY = getHeight() / 2;
 
         this.drawTitles(g2d, plotWidth, height);
-
+                
         g2d.translate(plotWindowOriginX, originY);
 
-        this.graphWindow.drawOn(g2d, plotWidth, height);
+        this.canvas.drawOn(g2d, plotWidth, height);
 
         g2d.translate(plotOriginX, plotOriginY);
         g2d.scale(1, -1);

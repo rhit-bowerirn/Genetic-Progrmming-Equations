@@ -29,7 +29,7 @@ public class SelectByTruncation implements SelectionMethod {
 
     @Override
     public String toString() {
-        return TRUNCATION_SELECTION;
+        return "Truncation Selection";
     }
     
 }

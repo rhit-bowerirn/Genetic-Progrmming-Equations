@@ -123,7 +123,7 @@ public class Dataset extends CopyOnWriteArrayList<Point> {
     }
 
     public double maxY() {
-        return this.stream().max(Point.xComparator()).orElse(new Point(0, 0)).y;
+        return this.stream().max(Point.yComparator()).orElse(new Point(0, 0)).y;
     }
 
     public void replaceData(Collection<Point> newData) {
@@ -147,6 +147,10 @@ public class Dataset extends CopyOnWriteArrayList<Point> {
 
     public Dataset transform(Function<Point, Point> action) {
         return new Dataset(this.stream().map(action).collect(Collectors.toList()));
+    }
+
+    public Dataset invert() {
+        return this.transform(p -> p.invert());
     }
 
     public void removeDuplicates() {

@@ -9,10 +9,20 @@ import ga.sim.alg.PopulationUtil;
 public class PopulationStats {
     private List<Genome> population;
     private int generation;
+    private double minFitness;
+    private double maxFitness;
+    private double avgFitness;
+    private Genome fittestGenome;
 
     public PopulationStats(List<Genome> population, int generation) {
         this.population = population;
         this.generation = generation;
+
+        //maybe do this manually to save time?
+        this.minFitness = PopulationUtil.minFitness(this.population);
+        this.maxFitness = PopulationUtil.maxFitness(population);
+        this.avgFitness = PopulationUtil.averageFitness(this.population);
+        this.fittestGenome = PopulationUtil.fittestGenome(this.population);
     }
 
     public void log(Logger logger) throws Exception {
@@ -34,19 +44,19 @@ public class PopulationStats {
     }
 
     public double maxFitness() {
-        return PopulationUtil.maxFitness(population);
+        return this.maxFitness;
     }
 
     public double minFitness() {
-        return PopulationUtil.minFitness(this.population);
+        return this.minFitness;
     }
 
     public double averageFitness() {
-        return PopulationUtil.averageFitness(this.population);
+        return this.avgFitness;
     }
 
     public Genome fittestGenome() {
-        return PopulationUtil.fittestGenome(this.population);
+        return this.fittestGenome;
     }
 
 }

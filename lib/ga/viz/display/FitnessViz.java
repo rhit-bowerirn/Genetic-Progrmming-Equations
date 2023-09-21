@@ -6,14 +6,13 @@ import javax.swing.JComponent;
 
 import ga.sim.alg.GeneticAlgorithm;
 import ga.sim.records.PopulationStats;
-import graphing.plotting.CoordinatePlaneWindow;
-import graphing.plotting.LinePlot;
-import graphing.plotting.Plot;
 import graphing.plotting.PlotComponent;
+import graphing.plotting.canvas.AutoScalingPlane;
+import graphing.plotting.plots.LinePlot;
+import graphing.plotting.plots.Plot;
 
 public class FitnessViz extends Visualization {
     private PlotComponent plotComponent;
-    private CoordinatePlaneWindow plane;
     private Plot maxFitnessPlot;
     private Plot minFitnessPlot;
     private Plot avgFitnessPlot;
@@ -24,8 +23,7 @@ public class FitnessViz extends Visualization {
         this.minFitnessPlot = new LinePlot("Min", Color.RED);
         this.avgFitnessPlot = new LinePlot("Average", Color.BLUE);
 
-        this.plane = new CoordinatePlaneWindow();
-        this.plotComponent = new PlotComponent("Fitness vs Time", "Generation", "Fitness", this.plane);
+        this.plotComponent = new PlotComponent("Fitness vs Time", "Generation", "Fitness", new AutoScalingPlane());
         this.plotComponent.addPlots(maxFitnessPlot, avgFitnessPlot, minFitnessPlot);
     }
 
@@ -35,9 +33,6 @@ public class FitnessViz extends Visualization {
         this.maxFitnessPlot.dataset().add(stats.maxFitness());
         this.minFitnessPlot.dataset().add(stats.minFitness());
         this.avgFitnessPlot.dataset().add(stats.averageFitness());
-
-        this.plane.updateBounds(0, ga.generations(),
-                ga.lowestEverFitness(), ga.highestEverFitness());
 
         this.plotComponent.repaint();
     }

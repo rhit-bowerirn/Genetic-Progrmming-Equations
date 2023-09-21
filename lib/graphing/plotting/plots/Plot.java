@@ -1,4 +1,4 @@
-package graphing.plotting;
+package graphing.plotting.plots;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -40,6 +40,22 @@ public abstract class Plot {
 
     public Color color() {
         return this.color;
+    }
+
+    public double minX() {
+        return this.dataset.minX();
+    }
+
+    public double maxX() {
+        return this.dataset.maxX();
+    }
+
+    public double minY() {
+        return this.dataset.minY();
+    }
+
+    public double maxY() {
+        return this.dataset.maxY();
     }
 
     // assumes the g2d is translated to the plot origin and positive y is up

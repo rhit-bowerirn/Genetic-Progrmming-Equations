@@ -11,16 +11,14 @@ public class SelectByProportion implements SelectionMethod {
 
     @Override
     public List<Genome> nextGeneration(List<Genome> population, Random rand) {
-        // sort the genomes so we can use their rank
-        population.sort(Genome::compareTo);
         List<Genome> children = new ArrayList<Genome>(population.size());
 
         // so we can index based on fitness
         double totalFitness = PopulationUtil.totalFitness(population);
 
         //we need to shift it so 0 is the min fitness
-        double minFitness = Math.abs(PopulationUtil.minFitness(population));
-        totalFitness += (minFitness * (double) population.size());
+        double zeroShift = Math.abs(PopulationUtil.minFitness(population));
+        totalFitness += (zeroShift * population.size());
 
         // assume we get the full population
         for (int i = 0; i < population.size() / 2; i++) {
@@ -28,7 +26,8 @@ public class SelectByProportion implements SelectionMethod {
             double firstIndex = rand.nextDouble(totalFitness);
 
             // stochastic universal sampling for second index
-            double secondIndex = firstIndex + (totalFitness / 2);
+            // choose the second point randomly to avoid hardset pairing
+            double secondIndex = firstIndex + rand.nextDouble(0.25, 0.75) * totalFitness;
             if (secondIndex > totalFitness) {
                 secondIndex -= totalFitness; // wrap to the beginning
             }
@@ -37,19 +36,20 @@ public class SelectByProportion implements SelectionMethod {
             Genome secondParent = null;
 
             for(Genome genome : population) {
-                firstIndex -= (genome.fitness() + minFitness);
-                secondIndex -= (genome.fitness() + minFitness);
+                
+                firstIndex -= (genome.fitness() + zeroShift);
+                secondIndex -= (genome.fitness() + zeroShift);
 
                 if(firstIndex <= 0 && firstParent == null) {
                     firstParent = genome;
-                    if(firstIndex > secondIndex) {
+                    if(secondParent != null) {
                         break;
                     }
                 }
 
                 if(secondIndex <= 0 && secondParent == null) {
                     secondParent = genome;
-                    if(secondIndex > firstIndex) {
+                    if(firstParent != null) {
                         break;
                     }
                 }
@@ -64,7 +64,7 @@ public class SelectByProportion implements SelectionMethod {
 
     @Override
     public String toString() {
-        return PROPORTIONAL_SELECTION;
+        return "Proportional Selection";
     }
 
 }

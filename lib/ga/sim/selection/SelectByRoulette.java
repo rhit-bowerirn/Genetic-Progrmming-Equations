@@ -31,7 +31,7 @@ public class SelectByRoulette implements SelectionMethod {
 
     @Override
     public String toString() {
-        return ROULETTE_SELECTION;
+        return "Roulette Selection";
     }
 
 }

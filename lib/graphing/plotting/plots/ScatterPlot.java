@@ -1,4 +1,4 @@
-package graphing.plotting;
+package graphing.plotting.plots;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

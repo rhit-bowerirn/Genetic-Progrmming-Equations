@@ -1,53 +1,62 @@
-package graphing.plotting;
+package graphing.plotting.canvas;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
 
-import graphing.data.Dataset;
+import graphing.plotting.plots.Plot;
 
-public class CoordinatePlaneWindow implements PlotCanvas {
-    private double xMin;
-    private double xMax;
-    private double yMin;
-    private double yMax;
+public abstract class CoordinatePlane {
+    protected double xMin;
+    protected double xMax;
+    protected double yMin;
+    protected double yMax;
 
     private static final int X_LABEL_OFFSET = 15;
     private static final int Y_LABEL_OFFSET = 5;
 
-    public CoordinatePlaneWindow() {
-        this.xMin = -20;
-        this.xMax = 20;
-        this.yMin = -20;
-        this.yMax = 20;
+    public CoordinatePlane() {
+        this.resetScale();
     }
 
-    public CoordinatePlaneWindow(double xMin, double xMax, double yMin, double yMax) {
+    public CoordinatePlane(double xMin, double xMax, double yMin, double yMax) {
+        this.setScale(xMin, xMax, yMin, yMax);
+    }
+
+    protected void resetScale() {
+        this.setScale(0, 0, 0, 0);
+    }
+
+    protected void setScale(double xMin, double xMax, double yMin, double yMax) {
         this.xMin = this.round(xMin, 3);
         this.xMax = this.round(xMax, 3);
         this.yMin = this.round(yMin, 3);
         this.yMax = this.round(yMax, 3);
     }
 
-    public void updateBounds(double xMin, double xMax, double yMin, double yMax) {
-        this.xMin = this.round(xMin, 3);
-        this.xMax = this.round(xMax, 3);
-        this.yMin = this.round(yMin, 3);
-        this.yMax = this.round(yMax, 3);
+    public int originX(int plotWidth) {
+        int originX = (int) (-(this.xMin + this.xMax) / (this.xMax - this.xMin) * plotWidth / 2);
+        return Math.max(-plotWidth / 2, Math.min(plotWidth / 2, originX));
     }
 
-    public void updateBounds(Plot plot) {
-        Dataset data = plot.dataset();
-        this.xMin = this.round(data.minX(), 3);
-        this.xMax = this.round(data.maxX(), 3);
-        this.yMin = this.round(data.minY(), 3);
-        this.yMax = this.round(data.maxY(), 3);
+    public int originY(int plotHeight) {
+        int originY = (int) ((this.yMin + this.yMax) / (this.yMax - this.yMin) * plotHeight / 2);
+        return Math.max(-plotHeight / 2, Math.min(plotHeight / 2, originY));
+    }
+
+    public double xScale(int plotWidth) {
+        return plotWidth / (this.xMax - this.xMin);
+    }
+
+    public double yScale(int plotHeight) {
+        return plotHeight / (this.yMax - this.yMin);
     }
 
     private double round(double num, int decimalPlaces) {
         return (int) (num * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
     }
 
-    @Override
+    // assumes the g2d is translated to the origin
     public void drawOn(Graphics2D g2d, int plotWidth, int plotHeight) {
         int originX = this.originX(plotWidth);
         int originY = this.originY(plotHeight);
@@ -82,28 +91,5 @@ public class CoordinatePlaneWindow implements PlotCanvas {
         g2d.drawString(String.valueOf(this.yMax), originX - yMaxLabelWidth - Y_LABEL_OFFSET, -plotHeight / 2 + 12);
     }
 
-    @Override
-    public int originX(int plotWidth) {
-        int originX = (int) (-(this.xMin + this.xMax) / (this.xMax - this.xMin) * plotWidth / 2);
-        return Math.max(-plotWidth / 2, Math.min(plotWidth / 2, originX));
-    }
-
-    @Override
-    public int originY(int plotHeight) {
-        int originY = (int) ((this.yMin + this.yMax) / (this.yMax - this.yMin) * plotHeight / 2);
-        return Math.max(-plotHeight / 2, Math.min(plotHeight / 2, originY));
-    }
-
-    @Override
-    public double xScale(int plotWidth) {
-        return plotWidth / (this.xMax - this.xMin);
-    }
-
-    @Override
-    public double yScale(int plotHeight) {
-        return plotHeight / (this.yMax - this.yMin);
-    }
-
-
-
+    public abstract void scale(List<Plot> plots);
 }

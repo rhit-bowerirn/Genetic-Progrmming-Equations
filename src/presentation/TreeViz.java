@@ -7,10 +7,10 @@ import ga.sim.alg.GeneticAlgorithm;
 import ga.viz.display.Visualization;
 
 
-public class TreeVisualization extends Visualization {
+public class TreeViz extends Visualization {
     private GPTreeComponent treeComponent;
 
-    public TreeVisualization() {
+    public TreeViz() {
         super();
         this.treeComponent = new GPTreeComponent();
     }

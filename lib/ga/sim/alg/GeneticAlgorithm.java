@@ -103,6 +103,10 @@ public class GeneticAlgorithm {
         return this.history.generations();
     }
 
+    public List<Genome> population() {
+        return this.population;
+    }
+
     public double highestEverFitness() {
         return this.history.highestEverFitness();
     }

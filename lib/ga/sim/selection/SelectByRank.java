@@ -43,7 +43,7 @@ public class SelectByRank implements SelectionMethod {
 
     @Override
     public String toString() {
-        return RANKED_SELECTION;
+        return "Ranked Selection";
     }
 
 }
